@@ -17,7 +17,6 @@
             --text-muted: #8b929e;
             --accent-green: #2ecc71;
             --accent-green-dim: rgba(46, 204, 113, 0.15);
-            --accent-glow: rgba(46, 204, 113, 0.4);
         }
 
         * {
@@ -165,7 +164,7 @@
 
         .search-box {
             position: relative;
-            width: 240px;
+            width: 200px;
         }
 
         .search-box input {
@@ -186,6 +185,25 @@
             transform: translateY(-50%);
             color: var(--text-muted);
             font-size: 13px;
+        }
+
+        .add-employee-btn {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 24px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+
+        .add-employee-btn:hover {
+            background-color: var(--border-color);
         }
 
         .team-avatars {
@@ -264,9 +282,37 @@
             border-radius: 50%;
         }
 
+        /* --- VIEWS DA NAVEGAÇÃO LATERAL --- */
+        .app-view {
+            display: none;
+            grid-column: 2 / 5;
+            grid-row: 2;
+            grid-template-columns: 320px 360px 1fr;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .app-view.active-view {
+            display: grid;
+        }
+
+        .page-content-full {
+            display: none;
+            grid-column: 2 / 5;
+            grid-row: 2;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .page-content-full.active-view {
+            display: block;
+        }
+
         /* --- COLUNA ESQUERDA (Funcionário & Métricas) --- */
         .col-left {
-            grid-column: 2;
             display: flex;
             flex-direction: column;
             gap: 16px;
@@ -386,16 +432,22 @@
             margin-top: 2px;
         }
 
-        .arrow-link {
-            width: 28px;
-            height: 28px;
+        .edit-profile-btn {
             background: var(--border-color);
+            border: none;
+            color: var(--text-main);
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-muted);
-            font-size: 11px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .edit-profile-btn:hover {
+            background: #333842;
         }
 
         .metrics-row {
@@ -449,7 +501,6 @@
 
         /* --- COLUNA CENTRAL (Progresso, Formato & Gráfico) --- */
         .col-center {
-            grid-column: 3;
             display: flex;
             flex-direction: column;
             gap: 16px;
@@ -526,7 +577,6 @@
             color: var(--accent-green);
         }
 
-        /* Working Format Circular Representation */
         .working-format-content {
             display: flex;
             flex-direction: column;
@@ -597,7 +647,6 @@
             border-radius: 50%;
         }
 
-        /* Salary Chart */
         .salary-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -681,11 +730,6 @@
             background-color: var(--accent-green);
         }
 
-        .bar-col span {
-            font-size: 10px;
-            color: var(--text-muted);
-        }
-
         .chart-tooltip {
             position: absolute;
             top: 5px;
@@ -720,7 +764,6 @@
 
         /* --- COLUNA DIREITA (Tarefas, Estágio & Drank Premium) --- */
         .col-right {
-            grid-column: 4;
             display: flex;
             flex-direction: column;
             gap: 16px;
@@ -817,6 +860,7 @@
             justify-content: space-between;
             align-items: center;
             font-size: 11px;
+            cursor: pointer;
         }
 
         .task-check-left {
@@ -848,7 +892,6 @@
             color: var(--text-muted);
         }
 
-        /* Drank Premium Card */
         .drank-premium-card {
             background: linear-gradient(135deg, #181512 0%, #261f18 100%);
             border: 1px solid #423427;
@@ -906,16 +949,82 @@
             margin-top: 2px;
         }
 
-        @media (max-width: 1400px) {
-            .dashboard-container {
-                width: 100%;
-                grid-template-columns: 70px 1fr 1fr;
-            }
-            .col-right {
-                grid-column: 1 / -1;
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-            }
+        /* --- MODAL DE CADASTRO DE FUNCIONÁRIO --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(4px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            width: 400px;
+            border-radius: 20px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .modal-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .form-group input {
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            border-radius: 12px;
+            color: var(--text-main);
+            font-size: 13px;
+            outline: none;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .btn-cancel {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .btn-save {
+            background: var(--accent-green);
+            border: none;
+            color: #000;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 12px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -930,13 +1039,13 @@
                     <i class="fa-solid fa-cube" style="color: #e67e22; font-size: 16px;"></i>
                 </div>
                 <nav class="nav-icons">
-                    <button class="nav-icon active" title="Início"><i class="fa-solid fa-house"></i></button>
-                    <button class="nav-icon" title="Agenda"><i class="fa-regular fa-calendar"></i></button>
-                    <button class="nav-icon" title="Mensagens"><i class="fa-regular fa-envelope"></i></button>
-                    <button class="nav-icon" title="Analytics"><i class="fa-solid fa-chart-line"></i></button>
+                    <button class="nav-icon active" onclick="switchView('home', this)" title="Início"><i class="fa-solid fa-house"></i></button>
+                    <button class="nav-icon" onclick="switchView('agenda', this)" title="Agenda"><i class="fa-regular fa-calendar"></i></button>
+                    <button class="nav-icon" onclick="switchView('mensagens', this)" title="Mensagens"><i class="fa-regular fa-envelope"></i></button>
+                    <button class="nav-icon" onclick="switchView('analytics', this)" title="Analytics"><i class="fa-solid fa-chart-line"></i></button>
                 </nav>
             </div>
-            <button class="logout-btn" title="Sair" onclick="alert('Saindo do sistema...')">
+            <button class="logout-btn" title="Sair" onclick="if(confirm('Deseja realmente sair do sistema?')) alert('Sessão encerrada com sucesso!');">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
             </button>
         </aside>
@@ -957,17 +1066,20 @@
                     <input type="text" placeholder="Pesquisar...">
                 </div>
 
-                <div class="team-avatars">
+                <button class="add-employee-btn" onclick="openModal()">
+                    <i class="fa-solid fa-user-plus"></i> + Add employee
+                </button>
+
+                <div class="team-avatars" id="team-avatars-container">
                     <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" alt="Membro">
                     <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" alt="Membro">
                     <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" alt="Membro">
                     <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100" alt="Membro">
-                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100" alt="Membro">
                 </div>
             </div>
 
             <div style="display: flex; align-items: center; gap: 14px;">
-                <button class="notif-btn" title="Notificações"><i class="fa-regular fa-bell"></i></button>
+                <button class="notif-btn" title="Notificações" onclick="alert('Você não tem novas notificações.')"><i class="fa-regular fa-bell"></i></button>
                 <div class="user-profile-header">
                     <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" alt="Gestor">
                     <div class="info">
@@ -978,315 +1090,377 @@
             </div>
         </header>
 
-        <!-- COLUNA ESQUERDA: Funcionário & Cards -->
-        <section class="col-left">
-            <div>
-                <h1 class="welcome-title">Bem-vindo, Drank</h1>
-                <p class="welcome-subtitle">12 membros</p>
-            </div>
+        <!-- VIEW 1: INÍCIO (Dashboard Principal) -->
+        <div id="view-home" class="app-view active-view">
+            <!-- COLUNA ESQUERDA -->
+            <section class="col-left">
+                <div>
+                    <h1 class="welcome-title">Bem-vindo, Drank</h1>
+                    <p class="welcome-subtitle" id="member-count-text">12 membros</p>
+                </div>
 
-            <!-- Card Principal do Funcionário -->
-            <div class="employee-card">
-                <div class="employee-card-header">
-                    <div class="status-badge">
-                        <div class="status-dot"></div>
-                        ONLINE
+                <div class="employee-card">
+                    <div class="employee-card-header">
+                        <div class="status-badge">
+                            <div class="status-dot"></div>
+                            ONLINE
+                        </div>
+                        <span class="work-time-badge" id="display-work-time">2 anos de trabalho</span>
                     </div>
-                    <span class="work-time-badge">2 anos de trabalho</span>
-                </div>
 
-                <div class="employee-photo-container">
-                    <img id="employee-img" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600" alt="Cavin Piterson">
-                    <label for="file-input" class="upload-photo-btn">
-                        <i class="fa-solid fa-camera"></i> Alterar Foto
-                    </label>
-                    <input type="file" id="file-input" accept="image/*" onchange="previewFile()">
-                </div>
-
-                <div class="employee-info-footer">
-                    <div>
-                        <h3>Cavin Piterson</h3>
-                        <p>Designer UX/UI</p>
+                    <div class="employee-photo-container">
+                        <img id="employee-img" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600" alt="Cavin Piterson">
+                        <label for="file-input" class="upload-photo-btn">
+                            <i class="fa-solid fa-camera"></i> Alterar Foto
+                        </label>
+                        <input type="file" id="file-input" accept="image/*" onchange="previewFile()">
                     </div>
-                    <div class="arrow-link">
-                        <i class="fa-solid fa-arrow-up-right"></i>
+
+                    <div class="employee-info-footer">
+                        <div>
+                            <h3 id="display-name">Cavin Piterson</h3>
+                            <p id="display-role">Designer UX/UI</p>
+                        </div>
+                        <button class="edit-profile-btn" onclick="editProfile()" title="Editar Nome e Cargo">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
                     </div>
                 </div>
-            </div>
 
-            <!-- Cards de Métricas Inferiores -->
-            <div class="metrics-row">
-                <div class="metric-card">
-                    <h2>456</h2>
-                    <p>Dias na empresa</p>
+                <div class="metrics-row">
+                    <div class="metric-card">
+                        <h2 id="display-days">456</h2>
+                        <p>Dias na empresa</p>
+                    </div>
+                    <div class="metric-card">
+                        <h2>11</h2>
+                        <p>Projetos concluídos</p>
+                    </div>
                 </div>
-                <div class="metric-card">
-                    <h2>11</h2>
-                    <p>Projetos concluídos</p>
-                </div>
-            </div>
 
-            <!-- Balão de Tags/Competências -->
-            <div class="tags-bubble-card">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-size: 12px; font-weight: 600; color: var(--text-muted);">Competências & Tags</span>
-                    <i class="fa-solid fa-tags" style="color: var(--text-muted); font-size: 12px;"></i>
+                <div class="tags-bubble-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 12px; font-weight: 600; color: var(--text-muted);">Competências & Tags</span>
+                        <i class="fa-solid fa-tags" style="color: var(--text-muted); font-size: 12px;"></i>
+                    </div>
+                    <div class="tags-container">
+                        <span class="tag-pill">Journey Map</span>
+                        <span class="tag-pill">Responsive Design</span>
+                        <span class="tag-pill">Design System</span>
+                        <span class="tag-pill">User Experience</span>
+                        <span class="tag-pill">User Flow</span>
+                        <span class="tag-pill">User Interface</span>
+                        <span class="tag-pill">User Research</span>
+                        <span class="tag-pill">Information Architecture</span>
+                    </div>
                 </div>
-                <div class="tags-container">
-                    <span class="tag-pill">Journey Map</span>
-                    <span class="tag-pill">Responsive Design</span>
-                    <span class="tag-pill">Design System</span>
-                    <span class="tag-pill">User Experience</span>
-                    <span class="tag-pill">User Flow</span>
-                    <span class="tag-pill">User Interface</span>
-                    <span class="tag-pill">User Research</span>
-                    <span class="tag-pill">Information Architecture</span>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- COLUNA CENTRAL: Progresso, Formato & Salário -->
-        <section class="col-center">
-            <!-- Card Progresso -->
-            <div class="card-box">
-                <div class="card-header-flex">
-                    <h3 class="card-title">Progresso</h3>
-                    <i class="fa-solid fa-ellipsis dots-menu"></i>
+            <!-- COLUNA CENTRAL -->
+            <section class="col-center">
+                <div class="card-box">
+                    <div class="card-header-flex">
+                        <h3 class="card-title">Progresso</h3>
+                        <i class="fa-solid fa-ellipsis dots-menu"></i>
+                    </div>
+                    <div class="progress-list">
+                        <div class="progress-item">
+                            <div class="progress-item-left">
+                                <div class="progress-icon"><i class="fa-solid fa-chart-pie"></i></div>
+                                <div class="progress-info">
+                                    <h4>Testes de Usuário</h4>
+                                    <p>10 horas</p>
+                                </div>
+                            </div>
+                            <span class="progress-value">+ $600</span>
+                        </div>
+
+                        <div class="progress-item">
+                            <div class="progress-item-left">
+                                <div class="progress-icon"><i class="fa-regular fa-comments"></i></div>
+                                <div class="progress-info">
+                                    <h4>Entrevistas</h4>
+                                    <p>16 horas</p>
+                                </div>
+                            </div>
+                            <span class="progress-value">+ $900</span>
+                        </div>
+
+                        <div class="progress-item">
+                            <div class="progress-item-left">
+                                <div class="progress-icon"><i class="fa-solid fa-users"></i></div>
+                                <div class="progress-info">
+                                    <h4>Testes A/B</h4>
+                                    <p>5 horas</p>
+                                </div>
+                            </div>
+                            <span class="progress-value">+ $340</span>
+                        </div>
+
+                        <div class="progress-item">
+                            <div class="progress-item-left">
+                                <div class="progress-icon"><i class="fa-regular fa-eye"></i></div>
+                                <div class="progress-info">
+                                    <h4>Revisão Final</h4>
+                                    <p>5 horas</p>
+                                </div>
+                            </div>
+                            <span class="progress-value">+ $300</span>
+                        </div>
+
+                        <div class="progress-item">
+                            <div class="progress-item-left">
+                                <div class="progress-icon"><i class="fa-solid fa-rotate"></i></div>
+                                <div class="progress-info">
+                                    <h4>Iterações de Design</h4>
+                                    <p>20 horas</p>
+                                </div>
+                            </div>
+                            <span class="progress-value">+ $1200</span>
+                        </div>
+
+                        <div class="progress-item">
+                            <div class="progress-item-left">
+                                <div class="progress-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                                <div class="progress-info">
+                                    <h4>Criar um CJM</h4>
+                                    <p>20 horas</p>
+                                </div>
+                            </div>
+                            <span class="progress-value">+ $1200</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="progress-list">
-                    <div class="progress-item">
-                        <div class="progress-item-left">
-                            <div class="progress-icon"><i class="fa-solid fa-chart-pie"></i></div>
-                            <div class="progress-info">
-                                <h4>Testes de Usuário</h4>
-                                <p>10 horas</p>
+
+                <div class="card-box">
+                    <div class="card-header-flex">
+                        <h3 class="card-title">Formato de trabalho</h3>
+                        <i class="fa-solid fa-ellipsis dots-menu"></i>
+                    </div>
+                    <div class="working-format-content">
+                        <div class="circular-graphic">
+                            <div class="circular-center-text">
+                                <span id="format-days-text">456</span>
+                                <small>Dias</small>
                             </div>
                         </div>
-                        <span class="progress-value">+ $600</span>
-                    </div>
-
-                    <div class="progress-item">
-                        <div class="progress-item-left">
-                            <div class="progress-icon"><i class="fa-regular fa-comments"></i></div>
-                            <div class="progress-info">
-                                <h4>Entrevistas</h4>
-                                <p>16 horas</p>
+                        <div class="format-legend">
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background-color: var(--accent-green);"></div>
+                                Híbrido (58%)
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background-color: #3498db;"></div>
+                                Remoto (32%)
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background-color: #e67e22;"></div>
+                                Escritório (60%)
                             </div>
                         </div>
-                        <span class="progress-value">+ $900</span>
+                    </div>
+                </div>
+
+                <div class="salary-card">
+                    <div class="salary-header">
+                        <div class="salary-title-group">
+                            <h4>Salário</h4>
+                            <p>Jan-Dez • <span>$45.989</span></p>
+                        </div>
+                        <div class="time-filters">
+                            <button class="active">7D</button>
+                            <button>1D</button>
+                            <button>1M</button>
+                            <button>1Y</button>
+                            <button>All</button>
+                        </div>
                     </div>
 
-                    <div class="progress-item">
-                        <div class="progress-item-left">
-                            <div class="progress-icon"><i class="fa-solid fa-users"></i></div>
-                            <div class="progress-info">
-                                <h4>Testes A/B</h4>
-                                <p>5 horas</p>
+                    <div class="chart-bars">
+                        <div class="chart-tooltip">
+                            <small>Ago</small>
+                            <b>$2000</b>
+                        </div>
+                        <div class="bar-col"><div class="bar" style="height: 35px;"></div></div>
+                        <div class="bar-col"><div class="bar" style="height: 45px;"></div></div>
+                        <div class="bar-col"><div class="bar" style="height: 30px;"></div></div>
+                        <div class="bar-col"><div class="bar" style="height: 55px;"></div></div>
+                        <div class="bar-col"><div class="bar" style="height: 40px;"></div></div>
+                        <div class="bar-col"><div class="bar" style="height: 60px;"></div></div>
+                        <div class="bar-col"><div class="bar active" style="height: 95px;"></div></div>
+                        <div class="bar-col"><div class="bar" style="height: 50px;"></div></div>
+                        <div class="bar-col"><div class="bar" style="height: 40px;"></div></div>
+                        <div class="bar-col"><div class="bar" style="height: 65px;"></div></div>
+                        <div class="bar-col"><div class="bar" style="height: 45px;"></div></div>
+                        <div class="bar-col"><div class="bar" style="height: 55px;"></div></div>
+                    </div>
+                    <div class="months-row">
+                        <span>Jan</span><span>Fev</span><span>Mar</span><span>Abr</span><span>Mai</span><span>Jun</span><span>Jul</span><span>Ago</span><span>Set</span><span>Out</span><span>Nov</span><span>Dez</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- COLUNA DIREITA -->
+            <section class="col-right">
+                <div class="finish-tasks-card">
+                    <div class="tasks-header">
+                        <span><b>16/30</b> Concluir tarefas</span>
+                        <i class="fa-regular fa-chart-bar"></i>
+                    </div>
+                    <svg class="mini-line-chart" viewBox="0 0 300 50">
+                        <path d="M 0 40 Q 50 25, 100 30 T 200 15 T 300 10" fill="none" stroke="var(--accent-green)" stroke-width="2.5"/>
+                        <circle cx="100" cy="30" r="3.5" fill="var(--accent-green)"/>
+                        <circle cx="200" cy="15" r="3.5" fill="var(--accent-green)"/>
+                    </svg>
+                </div>
+
+                <div class="design-stage-card">
+                    <div class="stage-top-info">
+                        <div class="stage-progress-circle">
+                            <span>23%</span>
+                        </div>
+                        <div class="stage-text">
+                            <small>Estágio 3</small>
+                            <h4>Desenvolver Componentes de UI Baseados no Design System</h4>
+                        </div>
+                    </div>
+
+                    <div class="task-checklist">
+                        <div class="task-check-item" onclick="toggleTask(this)">
+                            <div class="task-check-left">
+                                <div class="checkbox-custom checked"><i class="fa-solid fa-check"></i></div>
+                                <span style="text-decoration: line-through; color: var(--text-muted);">Executar Testes A/B para Variantes de Interface</span>
                             </div>
+                            <span class="task-time">12:11</span>
                         </div>
-                        <span class="progress-value">+ $340</span>
-                    </div>
 
-                    <div class="progress-item">
-                        <div class="progress-item-left">
-                            <div class="progress-icon"><i class="fa-regular fa-eye"></i></div>
-                            <div class="progress-info">
-                                <h4>Revisão Final</h4>
-                                <p>5 horas</p>
+                        <div class="task-check-item" onclick="toggleTask(this)">
+                            <div class="task-check-left">
+                                <div class="checkbox-custom"></div>
+                                <span>Mapear Fluxo do Usuário para o Processo de Registro</span>
                             </div>
+                            <span class="task-time">15:41</span>
                         </div>
-                        <span class="progress-value">+ $300</span>
-                    </div>
 
-                    <div class="progress-item">
-                        <div class="progress-item-left">
-                            <div class="progress-icon"><i class="fa-solid fa-rotate"></i></div>
-                            <div class="progress-info">
-                                <h4>Iterações de Design</h4>
-                                <p>20 horas</p>
+                        <div class="task-check-item" onclick="toggleTask(this)">
+                            <div class="task-check-left">
+                                <div class="checkbox-custom"></div>
+                                <span>Realizar Auditoria de UX do Produto Existente</span>
                             </div>
+                            <span class="task-time">16:54</span>
                         </div>
-                        <span class="progress-value">+ $1200</span>
-                    </div>
 
-                    <div class="progress-item">
-                        <div class="progress-item-left">
-                            <div class="progress-icon"><i class="fa-solid fa-laptop-code"></i></div>
-                            <div class="progress-info">
-                                <h4>Criar um CJM</h4>
-                                <p>20 horas</p>
+                        <div class="task-check-item" onclick="toggleTask(this)">
+                            <div class="task-check-left">
+                                <div class="checkbox-custom"></div>
+                                <span>Validar Protótipo Antes do Lançamento MixP</span>
                             </div>
+                            <span class="task-time">17:11</span>
                         </div>
-                        <span class="progress-value">+ $1200</span>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Card Formato de Trabalho -->
-            <div class="card-box">
-                <div class="card-header-flex">
-                    <h3 class="card-title">Formato de trabalho</h3>
-                    <i class="fa-solid fa-ellipsis dots-menu"></i>
-                </div>
-                <div class="working-format-content">
-                    <div class="circular-graphic">
-                        <div class="circular-center-text">
-                            <span>456</span>
-                            <small>Dias</small>
-                        </div>
-                    </div>
-                    <div class="format-legend">
-                        <div class="legend-item">
-                            <div class="legend-dot" style="background-color: var(--accent-green);"></div>
-                            Híbrido (2/5 58%)
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-dot" style="background-color: #3498db;"></div>
-                            Remoto (3/4 32%)
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-dot" style="background-color: #e67e22;"></div>
-                            Escritório (3/4 60%)
+                        <div class="task-check-item" onclick="toggleTask(this)">
+                            <div class="task-check-left">
+                                <div class="checkbox-custom"></div>
+                                <span>Desenvolver Experiência de Onboarding</span>
+                            </div>
+                            <span class="task-time">18:09</span>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Gráfico de Salário Mensal -->
-            <div class="salary-card">
-                <div class="salary-header">
-                    <div class="salary-title-group">
-                        <h4>Salário</h4>
-                        <p>Jan-Dez • <span>$45.989</span></p>
-                        <span style="font-size: 10px; display:inline-block; margin-top:2px;">+12,00%</span>
-                    </div>
-                    <div class="time-filters">
-                        <button class="active">7D</button>
-                        <button>1D</button>
-                        <button>1M</button>
-                        <button>1Y</button>
-                        <button>All</button>
-                    </div>
-                </div>
-
-                <div class="chart-bars">
-                    <!-- Tooltip em Agosto -->
-                    <div class="chart-tooltip">
-                        <small>Ago</small>
-                        <b>$2000</b>
-                    </div>
-
-                    <div class="bar-col"><div class="bar" style="height: 35px;"></div></div>
-                    <div class="bar-col"><div class="bar" style="height: 45px;"></div></div>
-                    <div class="bar-col"><div class="bar" style="height: 30px;"></div></div>
-                    <div class="bar-col"><div class="bar" style="height: 55px;"></div></div>
-                    <div class="bar-col"><div class="bar" style="height: 40px;"></div></div>
-                    <div class="bar-col"><div class="bar" style="height: 60px;"></div></div>
-                    <div class="bar-col"><div class="bar active" style="height: 95px;"></div></div>
-                    <div class="bar-col"><div class="bar" style="height: 50px;"></div></div>
-                    <div class="bar-col"><div class="bar" style="height: 40px;"></div></div>
-                    <div class="bar-col"><div class="bar" style="height: 65px;"></div></div>
-                    <div class="bar-col"><div class="bar" style="height: 45px;"></div></div>
-                    <div class="bar-col"><div class="bar" style="height: 55px;"></div></div>
-                </div>
-                <div class="months-row">
-                    <span>Jan</span><span>Fev</span><span>Mar</span><span>Abr</span><span>Mai</span><span>Jun</span><span>Jul</span><span>Ago</span><span>Set</span><span>Out</span><span>Nov</span><span>Dez</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- COLUNA DIREITA: Tarefas, Estágios & Drank Premium -->
-        <section class="col-right">
-            <!-- Tarefas de Conclusão -->
-            <div class="finish-tasks-card">
-                <div class="tasks-header">
-                    <span><b>16/30</b> Concluir tarefas</span>
-                    <i class="fa-regular fa-chart-bar"></i>
-                </div>
-                <!-- Mini Gráfico de Linha em SVG -->
-                <svg class="mini-line-chart" viewBox="0 0 300 50">
-                    <path d="M 0 40 Q 50 25, 100 30 T 200 15 T 300 10" fill="none" stroke="var(--accent-green)" stroke-width="2.5"/>
-                    <circle cx="100" cy="30" r="3.5" fill="var(--accent-green)"/>
-                    <circle cx="200" cy="15" r="3.5" fill="var(--accent-green)"/>
-                </svg>
-            </div>
-
-            <!-- Estágio de Design -->
-            <div class="design-stage-card">
-                <div class="stage-top-info">
-                    <div class="stage-progress-circle">
-                        <span>23%</span>
-                    </div>
-                    <div class="stage-text">
-                        <small>Estágio 3</small>
-                        <h4>Desenvolver Componentes de UI Baseados no Design System</h4>
-                    </div>
-                </div>
-
-                <div class="task-checklist">
-                    <div class="task-check-item">
-                        <div class="task-check-left">
-                            <div class="checkbox-custom checked"><i class="fa-solid fa-check"></i></div>
-                            <span style="text-decoration: line-through; color: var(--text-muted);">Executar Testes A/B para Variantes de Interface</span>
+                <div class="drank-premium-card">
+                    <div class="premium-top">
+                        <div class="premium-icon-box">
+                            <i class="fa-solid fa-cube"></i>
                         </div>
-                        <span class="task-time">12:11</span>
+                        <button class="price-button">
+                            <i class="fa-solid fa-arrow-right" style="font-size: 10px;"></i> $12.99 /mês
+                        </button>
                     </div>
-
-                    <div class="task-check-item">
-                        <div class="task-check-left">
-                            <div class="checkbox-custom"></div>
-                            <span>Mapear Fluxo do Usuário para o Processo de Registro</span>
-                        </div>
-                        <span class="task-time">15:41</span>
-                    </div>
-
-                    <div class="task-check-item">
-                        <div class="task-check-left">
-                            <div class="checkbox-custom"></div>
-                            <span>Realizar Auditoria de UX do Produto Existente</span>
-                        </div>
-                        <span class="task-time">16:54</span>
-                    </div>
-
-                    <div class="task-check-item">
-                        <div class="task-check-left">
-                            <div class="checkbox-custom"></div>
-                            <span>Validar Protótipo Antes do Lançamento MixP</span>
-                        </div>
-                        <span class="task-time">17:11</span>
-                    </div>
-
-                    <div class="task-check-item">
-                        <div class="task-check-left">
-                            <div class="checkbox-custom"></div>
-                            <span>Desenvolver Experiência de Onboarding</span>
-                        </div>
-                        <span class="task-time">18:09</span>
+                    <div class="premium-info">
+                        <h4>Drank Premium</h4>
+                        <p>Automação, IA help & Mais para projetos.</p>
                     </div>
                 </div>
-            </div>
+            </section>
+        </div>
 
-            <!-- Card Drank Premium -->
-            <div class="drank-premium-card">
-                <div class="premium-top">
-                    <div class="premium-icon-box">
-                        <i class="fa-solid fa-cube"></i>
-                    </div>
-                    <button class="price-button">
-                        <i class="fa-solid fa-arrow-right" style="font-size: 10px;"></i> $12.99 /mês
-                    </button>
-                </div>
-                <div class="premium-info">
-                    <h4>Drank Premium</h4>
-                    <p>Automação, IA help & Mais para projetos.</p>
-                </div>
-            </div>
-        </section>
+        <!-- VIEW 2: AGENDA -->
+        <div id="view-agenda" class="page-content-full">
+            <h2>Agenda e Compromissos</h2>
+            <p style="color: var(--text-muted); margin-top: 10px;">Nenhum evento agendado para hoje. Utilize este espaço para gerenciar reuniões da equipe de design.</p>
+        </div>
+
+        <!-- VIEW 3: MENSAGENS -->
+        <div id="view-mensagens" class="page-content-full">
+            <h2>Mensagens da Equipe</h2>
+            <p style="color: var(--text-muted); margin-top: 10px;">Caixa de entrada limpa. Suas conversas com Noah Brooks e os demais membros aparecerão aqui.</p>
+        </div>
+
+        <!-- VIEW 4: ANALYTICS -->
+        <div id="view-analytics" class="page-content-full">
+            <h2>Painel Geral de Analytics</h2>
+            <p style="color: var(--text-muted); margin-top: 10px;">Relatórios consolidados de desempenho, produtividade mensal e horas dedicadas aos projetos ativos.</p>
+        </div>
 
     </div>
 
+    <!-- MODAL DE CADASTRO DE NOVO FUNCIONÁRIO -->
+    <div class="modal-overlay" id="employeeModal">
+        <div class="modal-card">
+            <h3>Cadastrar Novo Funcionário</h3>
+            <div class="form-group">
+                <label>Nome Completo</label>
+                <input type="text" id="inputNewName" placeholder="Ex: Ana Silva">
+            </div>
+            <div class="form-group">
+                <label>Cargo / Função</label>
+                <input type="text" id="inputNewRole" placeholder="Ex: Desenvolvedora Frontend">
+            </div>
+            <div class="form-group">
+                <label>Dias na empresa</label>
+                <input type="number" id="inputNewDays" value="30">
+            </div>
+            <div class="form-group">
+                <label>Link da Foto (URL)</label>
+                <input type="text" id="inputNewPhoto" placeholder="https://images.unsplash.com/...">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+                <button class="btn-save" onclick="saveNewEmployee()">Salvar Cadastro</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Função para carregar/alterar a foto do funcionário interativamente
+        // Variáveis de estado global
+        let memberCount = 12;
+
+        // 1. Alternar visualizações pelas abas da barra lateral esquerda
+        function switchView(viewName, buttonElement) {
+            // Remove active de todos os ícones da nav
+            document.querySelectorAll('.nav-icon').forEach(btn => btn.classList.remove('active'));
+            buttonElement.classList.add('active');
+
+            // Esconde todas as views
+            document.getElementById('view-home').classList.remove('active-view');
+            document.getElementById('view-agenda').classList.remove('active-view');
+            document.getElementById('view-mensagens').classList.remove('active-view');
+            document.getElementById('view-analytics').classList.remove('active-view');
+
+            // Mostra a view solicitada
+            if(viewName === 'home') {
+                document.getElementById('view-home').classList.add('active-view');
+            } else if(viewName === 'agenda') {
+                document.getElementById('view-agenda').classList.add('active-view');
+            } else if(viewName === 'mensagens') {
+                document.getElementById('view-mensagens').classList.add('active-view');
+            } else if(viewName === 'analytics') {
+                document.getElementById('view-analytics').classList.add('active-view');
+            }
+        }
+
+        // 2. Carregar/Alterar foto do funcionário
         function previewFile() {
             const preview = document.getElementById('employee-img');
             const file = document.getElementById('file-input').files[0];
@@ -1300,6 +1474,88 @@
                 reader.readAsDataURL(file);
             }
         }
+
+        // 3. Editar Nome e Cargo do funcionário existente
+        function editProfile() {
+            const currentName = document.getElementById('display-name').innerText;
+            const currentRole = document.getElementById('display-role').innerText;
+
+            const newName = prompt("Digite o novo nome do funcionário:", currentName);
+            if(newName !== null && newName.trim() !== "") {
+                document.getElementById('display-name').innerText = newName;
+            }
+
+            const newRole = prompt("Digite o novo cargo do funcionário:", currentRole);
+            if(newRole !== null && newRole.trim() !== "") {
+                document.getElementById('display-role').innerText = newRole;
+            }
+        }
+
+        // 4. Modal para Cadastrar Novo Funcionário
+        function openModal() {
+            document.getElementById('employeeModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('employeeModal').style.display = 'none';
+        }
+
+        function saveNewEmployee() {
+            const name = document.getElementById('inputNewName').value;
+            const role = document.getElementById('inputNewRole').value;
+            const days = document.getElementById('inputNewDays').value;
+            const photoUrl = document.getElementById('inputNewPhoto').value;
+
+            if(!name || !role) {
+                alert('Por favor, preencha pelo menos o nome e o cargo.');
+                return;
+            }
+
+            // Atualiza os dados principais no card do funcionário
+            document.getElementById('display-name').innerText = name;
+            document.getElementById('display-role').innerText = role;
+            document.getElementById('display-days').innerText = days;
+            document.getElementById('format-days-text').innerText = days;
+            document.getElementById('display-work-time').innerText = `${Math.floor(days / 365) || 1} anos de trabalho`;
+
+            if(photoUrl.trim() !== "") {
+                document.getElementById('employee-img').src = photoUrl;
+                
+                // Adiciona foto ao container de membros do topo
+                const avatarsContainer = document.getElementById('team-avatars-container');
+                const newImg = document.createElement('img');
+                newImg.src = photoUrl;
+                avatarsContainer.appendChild(newImg);
+            }
+
+            // Incrementa contador de membros
+            memberCount++;
+            document.getElementById('member-count-text').innerText = `${memberCount} membros`;
+
+            closeModal();
+            alert(`Funcionário ${name} cadastrado e carregado com sucesso!`);
+        }
+
+        // 5. Marcar / Desmarcar tarefas da lista
+        function task-check-item(itemElement) {}
+        document.querySelectorAll('.task-check-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const checkbox = this.querySelector('.checkbox-custom');
+                const text = this.querySelector('span:not(.task-time)');
+                
+                if(checkbox.classList.contains('checked')) {
+                    checkbox.classList.remove('checked');
+                    checkbox.innerHTML = '';
+                    text.style.textDecoration = 'none';
+                    text.style.color = 'var(--text-main)';
+                } else {
+                    checkbox.classList.add('checked');
+                    checkbox.innerHTML = '<i class="fa-solid fa-check"></i>';
+                    text.style.textDecoration = 'line-through';
+                    text.style.color = 'var(--text-muted)';
+                }
+            });
+        });
     </script>
 </body>
 </html>
