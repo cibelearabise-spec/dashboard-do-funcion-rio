@@ -311,7 +311,7 @@
             display: block;
         }
 
-        /* --- COLUNA ESQUERDA (Funcionário & Métricas) --- */
+        /* --- COLUNA ESQUERDA --- */
         .col-left {
             display: flex;
             flex-direction: column;
@@ -487,7 +487,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
-            margin-top: 6px;
+            margin-top: 8px;
         }
 
         .tag-pill {
@@ -497,9 +497,40 @@
             border-radius: 16px;
             font-size: 10px;
             color: #d1d5db;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        /* --- COLUNA CENTRAL (Progresso, Formato & Gráfico) --- */
+        .tag-pill i {
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 9px;
+        }
+        .tag-pill i:hover {
+            color: #e74c3c;
+        }
+
+        .add-tag-btn {
+            background: var(--border-color);
+            border: none;
+            color: var(--text-muted);
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            font-size: 11px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .add-tag-btn:hover {
+            background: var(--accent-green);
+            color: #000;
+        }
+
+        /* --- COLUNA CENTRAL --- */
         .col-center {
             display: flex;
             flex-direction: column;
@@ -762,7 +793,7 @@
             color: var(--text-muted);
         }
 
-        /* --- COLUNA DIREITA (Tarefas, Estágio & Drank Premium) --- */
+        /* --- COLUNA DIREITA --- */
         .col-right {
             display: flex;
             flex-direction: column;
@@ -949,7 +980,7 @@
             margin-top: 2px;
         }
 
-        /* --- MODAL DE CADASTRO DE FUNCIONÁRIO --- */
+        /* --- MODAL DE CADASTRO --- */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -967,7 +998,7 @@
         .modal-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
-            width: 400px;
+            width: 420px;
             border-radius: 20px;
             padding: 24px;
             display: flex;
@@ -991,7 +1022,7 @@
             color: var(--text-muted);
         }
 
-        .form-group input {
+        .form-group input, .form-group select {
             background-color: var(--bg-main);
             border: 1px solid var(--border-color);
             padding: 10px;
@@ -1133,7 +1164,7 @@
                         <p>Dias na empresa</p>
                     </div>
                     <div class="metric-card">
-                        <h2>11</h2>
+                        <h2 id="display-projects">11</h2>
                         <p>Projetos concluídos</p>
                     </div>
                 </div>
@@ -1141,17 +1172,13 @@
                 <div class="tags-bubble-card">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <span style="font-size: 12px; font-weight: 600; color: var(--text-muted);">Competências & Tags</span>
-                        <i class="fa-solid fa-tags" style="color: var(--text-muted); font-size: 12px;"></i>
+                        <button class="add-tag-btn" onclick="addNewTag()" title="Adicionar nova competência"><i class="fa-solid fa-plus"></i></button>
                     </div>
-                    <div class="tags-container">
-                        <span class="tag-pill">Journey Map</span>
-                        <span class="tag-pill">Responsive Design</span>
-                        <span class="tag-pill">Design System</span>
-                        <span class="tag-pill">User Experience</span>
-                        <span class="tag-pill">User Flow</span>
-                        <span class="tag-pill">User Interface</span>
-                        <span class="tag-pill">User Research</span>
-                        <span class="tag-pill">Information Architecture</span>
+                    <div class="tags-container" id="tags-container-box">
+                        <span class="tag-pill">Journey Map <i class="fa-solid fa-xmark" onclick="removeTag(this)"></i></span>
+                        <span class="tag-pill">Responsive Design <i class="fa-solid fa-xmark" onclick="removeTag(this)"></i></span>
+                        <span class="tag-pill">Design System <i class="fa-solid fa-xmark" onclick="removeTag(this)"></i></span>
+                        <span class="tag-pill">User Experience <i class="fa-solid fa-xmark" onclick="removeTag(this)"></i></span>
                     </div>
                 </div>
             </section>
@@ -1163,72 +1190,8 @@
                         <h3 class="card-title">Progresso</h3>
                         <i class="fa-solid fa-ellipsis dots-menu"></i>
                     </div>
-                    <div class="progress-list">
-                        <div class="progress-item">
-                            <div class="progress-item-left">
-                                <div class="progress-icon"><i class="fa-solid fa-chart-pie"></i></div>
-                                <div class="progress-info">
-                                    <h4>Testes de Usuário</h4>
-                                    <p>10 horas</p>
-                                </div>
-                            </div>
-                            <span class="progress-value">+ $600</span>
-                        </div>
-
-                        <div class="progress-item">
-                            <div class="progress-item-left">
-                                <div class="progress-icon"><i class="fa-regular fa-comments"></i></div>
-                                <div class="progress-info">
-                                    <h4>Entrevistas</h4>
-                                    <p>16 horas</p>
-                                </div>
-                            </div>
-                            <span class="progress-value">+ $900</span>
-                        </div>
-
-                        <div class="progress-item">
-                            <div class="progress-item-left">
-                                <div class="progress-icon"><i class="fa-solid fa-users"></i></div>
-                                <div class="progress-info">
-                                    <h4>Testes A/B</h4>
-                                    <p>5 horas</p>
-                                </div>
-                            </div>
-                            <span class="progress-value">+ $340</span>
-                        </div>
-
-                        <div class="progress-item">
-                            <div class="progress-item-left">
-                                <div class="progress-icon"><i class="fa-regular fa-eye"></i></div>
-                                <div class="progress-info">
-                                    <h4>Revisão Final</h4>
-                                    <p>5 horas</p>
-                                </div>
-                            </div>
-                            <span class="progress-value">+ $300</span>
-                        </div>
-
-                        <div class="progress-item">
-                            <div class="progress-item-left">
-                                <div class="progress-icon"><i class="fa-solid fa-rotate"></i></div>
-                                <div class="progress-info">
-                                    <h4>Iterações de Design</h4>
-                                    <p>20 horas</p>
-                                </div>
-                            </div>
-                            <span class="progress-value">+ $1200</span>
-                        </div>
-
-                        <div class="progress-item">
-                            <div class="progress-item-left">
-                                <div class="progress-icon"><i class="fa-solid fa-laptop-code"></i></div>
-                                <div class="progress-info">
-                                    <h4>Criar um CJM</h4>
-                                    <p>20 horas</p>
-                                </div>
-                            </div>
-                            <span class="progress-value">+ $1200</span>
-                        </div>
+                    <div class="progress-list" id="progress-list-box">
+                        <!-- Preenchido dinamicamente via JS de acordo com o cargo -->
                     </div>
                 </div>
 
@@ -1265,21 +1228,21 @@
                     <div class="salary-header">
                         <div class="salary-title-group">
                             <h4>Salário</h4>
-                            <p>Jan-Dez • <span>$45.989</span></p>
+                            <p><span id="salary-period-label">Jan-Dez</span> • <span id="display-salary">$45.989</span></p>
                         </div>
                         <div class="time-filters">
-                            <button class="active">7D</button>
-                            <button>1D</button>
-                            <button>1M</button>
-                            <button>1Y</button>
-                            <button>All</button>
+                            <button onclick="filterSalary('7D', this)">7D</button>
+                            <button onclick="filterSalary('1D', this)">1D</button>
+                            <button onclick="filterSalary('1M', this)">1M</button>
+                            <button onclick="filterSalary('1Y', this)" class="active">1Y</button>
+                            <button onclick="filterSalary('All', this)">All</button>
                         </div>
                     </div>
 
-                    <div class="chart-bars">
-                        <div class="chart-tooltip">
-                            <small>Ago</small>
-                            <b>$2000</b>
+                    <div class="chart-bars" id="chart-bars-container">
+                        <div class="chart-tooltip" id="chart-tooltip-box">
+                            <small>Média</small>
+                            <b id="tooltip-val">$3800</b>
                         </div>
                         <div class="bar-col"><div class="bar" style="height: 35px;"></div></div>
                         <div class="bar-col"><div class="bar" style="height: 45px;"></div></div>
@@ -1294,7 +1257,7 @@
                         <div class="bar-col"><div class="bar" style="height: 45px;"></div></div>
                         <div class="bar-col"><div class="bar" style="height: 55px;"></div></div>
                     </div>
-                    <div class="months-row">
+                    <div class="months-row" id="months-row-label">
                         <span>Jan</span><span>Fev</span><span>Mar</span><span>Abr</span><span>Mai</span><span>Jun</span><span>Jul</span><span>Ago</span><span>Set</span><span>Out</span><span>Nov</span><span>Dez</span>
                     </div>
                 </div>
@@ -1320,8 +1283,8 @@
                             <span>23%</span>
                         </div>
                         <div class="stage-text">
-                            <small>Estágio 3</small>
-                            <h4>Desenvolver Componentes de UI Baseados no Design System</h4>
+                            <small>Estágio Atual</small>
+                            <h4 id="display-current-task-desc">Desenvolver Componentes de UI Baseados no Design System</h4>
                         </div>
                     </div>
 
@@ -1329,7 +1292,7 @@
                         <div class="task-check-item">
                             <div class="task-check-left">
                                 <div class="checkbox-custom checked"><i class="fa-solid fa-check"></i></div>
-                                <span style="text-decoration: line-through; color: var(--text-muted);">Executar Testes A/B para Variantes de Interface</span>
+                                <span style="text-decoration: line-through; color: var(--text-muted);">Executar Alinhamento Estratégico Inicial</span>
                             </div>
                             <span class="task-time">12:11</span>
                         </div>
@@ -1337,7 +1300,7 @@
                         <div class="task-check-item">
                             <div class="task-check-left">
                                 <div class="checkbox-custom"></div>
-                                <span>Mapear Fluxo do Usuário para o Processo de Registro</span>
+                                <span>Revisar Cronograma de Atividades e Prazos</span>
                             </div>
                             <span class="task-time">15:41</span>
                         </div>
@@ -1345,7 +1308,7 @@
                         <div class="task-check-item">
                             <div class="task-check-left">
                                 <div class="checkbox-custom"></div>
-                                <span>Realizar Auditoria de UX do Produto Existente</span>
+                                <span>Realizar Reunião de Alinhamento com a Equipe</span>
                             </div>
                             <span class="task-time">16:54</span>
                         </div>
@@ -1353,17 +1316,9 @@
                         <div class="task-check-item">
                             <div class="task-check-left">
                                 <div class="checkbox-custom"></div>
-                                <span>Validar Protótipo Antes do Lançamento MixP</span>
+                                <span>Validar Documentação e Relatórios Técnicos</span>
                             </div>
                             <span class="task-time">17:11</span>
-                        </div>
-
-                        <div class="task-check-item">
-                            <div class="task-check-left">
-                                <div class="checkbox-custom"></div>
-                                <span>Desenvolver Experiência de Onboarding</span>
-                            </div>
-                            <span class="task-time">18:09</span>
                         </div>
                     </div>
                 </div>
@@ -1388,19 +1343,19 @@
         <!-- VIEW 2: AGENDA -->
         <div id="view-agenda" class="page-content-full">
             <h2>Agenda e Compromissos</h2>
-            <p style="color: var(--text-muted); margin-top: 10px;">Nenhum evento agendado para hoje. Utilize este espaço para gerenciar reuniões da equipe de design.</p>
+            <p style="color: var(--text-muted); margin-top: 10px;">Nenhum evento agendado para hoje. Utilize este espaço para gerenciar reuniões e compromissos do cargo.</p>
         </div>
 
         <!-- VIEW 3: MENSAGENS -->
         <div id="view-mensagens" class="page-content-full">
             <h2>Mensagens da Equipe</h2>
-            <p style="color: var(--text-muted); margin-top: 10px;">Caixa de entrada limpa. Suas conversas com Noah Brooks e os demais membros aparecerão aqui.</p>
+            <p style="color: var(--text-muted); margin-top: 10px;">Caixa de entrada limpa. Suas conversas com os demais colaboradores e liderança aparecerão aqui.</p>
         </div>
 
         <!-- VIEW 4: ANALYTICS -->
         <div id="view-analytics" class="page-content-full">
             <h2>Painel Geral de Analytics</h2>
-            <p style="color: var(--text-muted); margin-top: 10px;">Relatórios consolidados de desempenho, produtividade mensal e horas dedicadas aos projetos ativos.</p>
+            <p style="color: var(--text-muted); margin-top: 10px;">Relatórios consolidados de desempenho, produtividade e alocação orçamentária por departamento.</p>
         </div>
 
     </div>
@@ -1415,11 +1370,19 @@
             </div>
             <div class="form-group">
                 <label>Cargo / Função</label>
-                <input type="text" id="inputNewRole" placeholder="Ex: Desenvolvedora Frontend">
+                <select id="inputNewRole" onchange="previewRoleSalary(this.value)">
+                    <option value="CEO">CEO (Diretor Executivo)</option>
+                    <option value="Gerente de Projetos">Gerente de Projetos</option>
+                    <option value="Designer UX/UI" selected>Designer UX/UI</option>
+                    <option value="Desenvolvedor Frontend">Desenvolvedor Frontend</option>
+                    <option value="Secretária">Secretária</option>
+                    <option value="Recepcionista">Recepcionista</option>
+                    <option value="Outro">Outro (Personalizado)</option>
+                </select>
             </div>
             <div class="form-group">
                 <label>Dias na empresa</label>
-                <input type="number" id="inputNewDays" value="30">
+                <input type="number" id="inputNewDays" value="456">
             </div>
             <div class="form-group">
                 <label>Link da Foto (URL)</label>
@@ -1434,6 +1397,95 @@
 
     <script>
         let memberCount = 12;
+
+        // Base de Dados de Cargos (Salários base anuais, tags e tarefas de progresso automáticas)
+        const roleDatabase = {
+            "CEO": {
+                baseSalary: 125000,
+                projects: 24,
+                tags: ["Gestão Estratégica", "Liderança", "Orçamento", "Visão de Negócio", "Governança"],
+                progress: [
+                    { icon: "fa-solid fa-chart-line", title: "Planejamento Orçamentário", hours: "15 horas", value: "+ $3500" },
+                    { icon: "fa-solid fa-handshake", title: "Reunião com Investidores", hours: "10 horas", value: "+ $2800" },
+                    { icon: "fa-solid fa-bullhorn", title: "Alinhamento de Metas", hours: "8 horas", value: "+ $1500" },
+                    { icon: "fa-solid fa-globe", title: "Expansão de Mercado", hours: "25 horas", value: "+ $5000" }
+                ],
+                currentTask: "Consolidar Relatório Financeiro Trimestral e Alinhamento do Board"
+            },
+            "Gerente de Projetos": {
+                baseSalary: 85000,
+                projects: 18,
+                tags: ["Scrum", "Agile", "Gestão de Prazos", "Jira", "Risk Management"],
+                progress: [
+                    { icon: "fa-solid fa-list-check", title: "Sprint Planning", hours: "12 horas", value: "+ $1200" },
+                    { icon: "fa-solid fa-users-gear", title: "Daily Meetings", hours: "20 horas", value: "+ $1500" },
+                    { icon: "fa-solid fa-chart-pie", title: "Retrospectiva", hours: "6 horas", value: "+ $600" },
+                    { icon: "fa-solid fa-file-contract", title: "Gestão de Riscos", hours: "14 horas", value: "+ $1400" }
+                ],
+                currentTask: "Acompanhar entregas da Sprint atual e desobstruir gargalos da equipe"
+            },
+            "Designer UX/UI": {
+                baseSalary: 45989,
+                projects: 11,
+                tags: ["Journey Map", "Responsive Design", "Design System", "User Experience", "Figma"],
+                progress: [
+                    { icon: "fa-solid fa-chart-pie", title: "Testes de Usuário", hours: "10 horas", value: "+ $600" },
+                    { icon: "fa-regular fa-comments", title: "Entrevistas", hours: "16 horas", value: "+ $900" },
+                    { icon: "fa-solid fa-users", title: "Testes A/B", hours: "5 horas", value: "+ $340" },
+                    { icon: "fa-solid fa-laptop-code", title: "Criar um CJM", hours: "20 horas", value: "+ $1200" }
+                ],
+                currentTask: "Desenvolver Componentes de UI Baseados no Design System"
+            },
+            "Desenvolvedor Frontend": {
+                baseSalary: 72000,
+                projects: 15,
+                tags: ["JavaScript", "React", "HTML/CSS", "Git", "Performance Web"],
+                progress: [
+                    { icon: "fa-solid fa-code", title: "Implementação de Componentes", hours: "25 horas", value: "+ $1800" },
+                    { icon: "fa-solid fa-bug", title: "Correção de Bugs", hours: "10 horas", value: "+ $800" },
+                    { icon: "fa-solid fa-code-pull-request", title: "Code Review", hours: "8 horas", value: "+ $700" },
+                    { icon: "fa-solid fa-gauge-high", title: "Otimização de SEO/Performance", hours: "12 horas", value: "+ $1100" }
+                ],
+                currentTask: "Refatorar componentes principais da aplicação para melhoria de velocidade"
+            },
+            "Secretária": {
+                baseSalary: 38000,
+                projects: 30,
+                tags: ["Organização de Agenda", "Atendimento Executivo", "Redação Oficial", "Gestão de Documentos"],
+                progress: [
+                    { icon: "fa-regular fa-calendar-check", title: "Organização de Agendas", hours: "15 horas", value: "+ $500" },
+                    { icon: "fa-regular fa-file-lines", title: "Gestão de Documentação", hours: "20 horas", value: "+ $700" },
+                    { icon: "fa-solid fa-phone", title: "Atendimento Telefônico", hours: "12 horas", value: "+ $400" },
+                    { icon: "fa-solid fa-envelope-open-text", title: "Correspondência Corporativa", hours: "10 horas", value: "+ $350" }
+                ],
+                currentTask: "Atualizar arquivo de atas de reuniões da diretoria executiva"
+            },
+            "Recepcionista": {
+                baseSalary: 32000,
+                projects: 40,
+                tags: ["Atendimento ao Cliente", "Controle de Acesso", "Central Telefônica", "Hospitalidade"],
+                progress: [
+                    { icon: "fa-solid fa-id-badge", title: "Credenciamento de Visitantes", hours: "25 horas", value: "+ $450" },
+                    { icon: "fa-solid fa-headset", title: "Central de Chamadas", hours: "18 horas", value: "+ $350" },
+                    { icon: "fa-solid fa-people-arrows", title: "Recepção de Clientes", hours: "20 horas", value: "+ $500" },
+                    { icon: "fa-solid fa-clipboard-user", title: "Controle de Logística de Sala", hours: "8 horas", value: "+ $200" }
+                ],
+                currentTask: "Organizar fluxo de atendimento e cadastro de visitantes na recepção principal"
+            },
+            "Outro": {
+                baseSalary: 40000,
+                projects: 8,
+                tags: ["Operações", "Produtividade", "Suporte", "Colaboração"],
+                progress: [
+                    { icon: "fa-solid fa-circle-check", title: "Demandas Gerais", hours: "15 horas", value: "+ $500" },
+                    { icon: "fa-solid fa-list-check", title: "Tarefas Diárias", hours: "15 horas", value: "+ $500" }
+                ],
+                currentTask: "Executar rotinas operacionais diárias atribuídas pelo gestor"
+            }
+        };
+
+        let currentActiveRole = "Designer UX/UI";
+        let currentSalaryValue = 45989;
 
         // Alternar visualizações pelas abas da barra lateral esquerda
         function switchView(viewName, buttonElement) {
@@ -1481,10 +1533,117 @@
                 document.getElementById('display-name').innerText = newName;
             }
 
-            const newRole = prompt("Digite o novo cargo do funcionário:", currentRole);
-            if(newRole !== null && newRole.trim() !== "") {
+            const rolesList = Object.keys(roleDatabase).join(", ");
+            const newRole = prompt(`Escolha o cargo (${rolesList}):`, currentRole);
+            
+            if(newRole !== null && roleDatabase[newRole]) {
+                updateDashboardByRole(newRole);
+            } else if(newRole !== null && newRole.trim() !== "") {
+                // Cargo personalizado manual
                 document.getElementById('display-role').innerText = newRole;
+                currentActiveRole = "Outro";
+                updateDashboardByRole("Outro");
             }
+        }
+
+        // Atualizar visualmente o painel com base nas especificações do cargo
+        function updateDashboardByRole(roleName) {
+            currentActiveRole = roleName;
+            const data = roleDatabase[roleName] || roleDatabase["Outro"];
+            
+            document.getElementById('display-role').innerText = roleName;
+            document.getElementById('display-projects').innerText = data.projects;
+            
+            currentSalaryValue = data.baseSalary;
+            document.getElementById('display-salary').innerText = `$${data.baseSalary.toLocaleString('en-US')}`;
+            document.getElementById('display-current-task-desc').innerText = data.currentTask;
+
+            // Atualizar Tags de Competências
+            const tagsBox = document.getElementById('tags-container-box');
+            tagsBox.innerHTML = '';
+            data.tags.forEach(tag => {
+                const span = document.createElement('span');
+                span.className = 'tag-pill';
+                span.innerHTML = `${tag} <i class="fa-solid fa-xmark" onclick="removeTag(this)"></i>`;
+                tagsBox.appendChild(span);
+            });
+
+            // Atualizar Progresso de Horas/Tarefas
+            const progressBox = document.getElementById('progress-list-box');
+            progressBox.innerHTML = '';
+            data.progress.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'progress-item';
+                div.innerHTML = `
+                    <div class="progress-item-left">
+                        <div class="progress-icon"><i class="${item.icon}"></i></div>
+                        <div class="progress-info">
+                            <h4>${item.title}</h4>
+                            <p>${item.hours}</p>
+                        </div>
+                    </div>
+                    <span class="progress-value">${item.value}</span>
+                `;
+                progressBox.appendChild(div);
+            });
+        }
+
+        // Adicionar nova competência/tag manualmente
+        function addNewTag() {
+            const newTagName = prompt("Digite a nova competência ou tag:");
+            if(newTagName && newTagName.trim() !== "") {
+                const tagsBox = document.getElementById('tags-container-box');
+                const span = document.createElement('span');
+                span.className = 'tag-pill';
+                span.innerHTML = `${newTagName.trim()} <i class="fa-solid fa-xmark" onclick="removeTag(this)"></i>`;
+                tagsBox.appendChild(span);
+            }
+        }
+
+        // Remover tag
+        function removeTag(element) {
+            element.parentElement.remove();
+        }
+
+        // Filtros de Salário Dinâmicos (7D, 1D, 1M, 1Y, All)
+        function filterSalary(period, btnElement) {
+            document.querySelectorAll('.time-filters button').forEach(b => b.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            const labelEl = document.getElementById('salary-period-label');
+            const salaryEl = document.getElementById('display-salary');
+            const tooltipValEl = document.getElementById('tooltip-val');
+            const monthsRowEl = document.getElementById('months-row-label');
+
+            let multiplier = 1;
+            let periodText = "Jan-Dez";
+
+            if(period === '7D') {
+                multiplier = 7 / 365;
+                periodText = "Últimos 7 dias";
+                monthsRowEl.innerHTML = '<span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span>';
+            } else if(period === '1D') {
+                multiplier = 1 / 365;
+                periodText = "Hoje";
+                monthsRowEl.innerHTML = '<span>08:00</span><span>10:00</span><span>12:00</span><span>14:00</span><span>16:00</span><span>18:00</span>';
+            } else if(period === '1M') {
+                multiplier = 30 / 365;
+                periodText = "Este Mês";
+                monthsRowEl.innerHTML = '<span>Sem 1</span><span>Sem 2</span><span>Sem 3</span><span>Sem 4</span>';
+            } else if(period === '1Y') {
+                multiplier = 1;
+                periodText = "Jan-Dez";
+                monthsRowEl.innerHTML = '<span>Jan</span><span>Fev</span><span>Mar</span><span>Abr</span><span>Mai</span><span>Jun</span><span>Jul</span><span>Ago</span><span>Set</span><span>Out</span><span>Nov</span><span>Dez</span>';
+            } else if(period === 'All') {
+                multiplier = 2.5; // Histórico de acumulado geral
+                periodText = "Acumulado Total";
+                monthsRowEl.innerHTML = '<span>2023</span><span>2024</span><span>2025</span><span>2026</span>';
+            }
+
+            const calculated = Math.round(currentSalaryValue * multiplier);
+            labelEl.innerText = periodText;
+            salaryEl.innerText = `$${calculated.toLocaleString('en-US')}`;
+            tooltipValEl.innerText = `$${Math.round(calculated / 12).toLocaleString('en-US')}`;
         }
 
         // Modal para Cadastrar Novo Funcionário
@@ -1502,16 +1661,18 @@
             const days = document.getElementById('inputNewDays').value;
             const photoUrl = document.getElementById('inputNewPhoto').value;
 
-            if(!name || !role) {
-                alert('Por favor, preencha pelo menos o nome e o cargo.');
+            if(!name) {
+                alert('Por favor, informe o nome do funcionário.');
                 return;
             }
 
             document.getElementById('display-name').innerText = name;
-            document.getElementById('display-role').innerText = role;
             document.getElementById('display-days').innerText = days;
             document.getElementById('format-days-text').innerText = days;
             document.getElementById('display-work-time').innerText = `${Math.floor(days / 365) || 1} anos de trabalho`;
+
+            // Atualiza cargo, salário e tags automaticamente
+            updateDashboardByRole(role);
 
             if(photoUrl.trim() !== "") {
                 document.getElementById('employee-img').src = photoUrl;
@@ -1526,7 +1687,7 @@
             document.getElementById('member-count-text').innerText = `${memberCount} membros`;
 
             closeModal();
-            alert(`Funcionário ${name} cadastrado e carregado com sucesso!`);
+            alert(`Funcionário ${name} (${role}) cadastrado e carregado com sucesso!`);
         }
 
         // Marcar / Desmarcar tarefas da lista
@@ -1548,6 +1709,9 @@
                 }
             });
         });
+
+        // Inicialização padrão
+        updateDashboardByRole("Designer UX/UI");
     </script>
 </body>
 </html>
