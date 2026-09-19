@@ -1227,38 +1227,30 @@
                 <div class="salary-card">
                     <div class="salary-header">
                         <div class="salary-title-group">
-                            <h4>Salário</h4>
-                            <p><span id="salary-period-label">Jan-Dez</span> • <span id="display-salary">$45.989</span></p>
+                            <h4>Salário Mensal</h4>
+                            <p><span id="salary-period-label">Este Mês</span> • <span id="display-salary">$3.832</span></p>
                         </div>
                         <div class="time-filters">
                             <button onclick="filterSalary('7D', this)">7D</button>
                             <button onclick="filterSalary('1D', this)">1D</button>
-                            <button onclick="filterSalary('1M', this)">1M</button>
-                            <button onclick="filterSalary('1Y', this)" class="active">1Y</button>
+                            <button onclick="filterSalary('1M', this)" class="active">1M</button>
+                            <button onclick="filterSalary('1Y', this)">1Y</button>
                             <button onclick="filterSalary('All', this)">All</button>
                         </div>
                     </div>
 
                     <div class="chart-bars" id="chart-bars-container">
                         <div class="chart-tooltip" id="chart-tooltip-box">
-                            <small>Média</small>
-                            <b id="tooltip-val">$3800</b>
+                            <small>Média Semanal</small>
+                            <b id="tooltip-val">$958</b>
                         </div>
                         <div class="bar-col"><div class="bar" style="height: 35px;"></div></div>
                         <div class="bar-col"><div class="bar" style="height: 45px;"></div></div>
                         <div class="bar-col"><div class="bar" style="height: 30px;"></div></div>
-                        <div class="bar-col"><div class="bar" style="height: 55px;"></div></div>
-                        <div class="bar-col"><div class="bar" style="height: 40px;"></div></div>
-                        <div class="bar-col"><div class="bar" style="height: 60px;"></div></div>
                         <div class="bar-col"><div class="bar active" style="height: 95px;"></div></div>
-                        <div class="bar-col"><div class="bar" style="height: 50px;"></div></div>
-                        <div class="bar-col"><div class="bar" style="height: 40px;"></div></div>
-                        <div class="bar-col"><div class="bar" style="height: 65px;"></div></div>
-                        <div class="bar-col"><div class="bar" style="height: 45px;"></div></div>
-                        <div class="bar-col"><div class="bar" style="height: 55px;"></div></div>
                     </div>
                     <div class="months-row" id="months-row-label">
-                        <span>Jan</span><span>Fev</span><span>Mar</span><span>Abr</span><span>Mai</span><span>Jun</span><span>Jul</span><span>Ago</span><span>Set</span><span>Out</span><span>Nov</span><span>Dez</span>
+                        <span>Sem 1</span><span>Sem 2</span><span>Sem 3</span><span>Sem 4</span>
                     </div>
                 </div>
             </section>
@@ -1398,94 +1390,94 @@
     <script>
         let memberCount = 12;
 
-        // Base de Dados de Cargos (Salários base anuais, tags e tarefas de progresso automáticas)
+        // Base de Dados de Cargos (Salário base MENSAL predefinido, tags e tarefas)
         const roleDatabase = {
             "CEO": {
-                baseSalary: 125000,
+                monthlySalary: 12000,
                 projects: 24,
                 tags: ["Gestão Estratégica", "Liderança", "Orçamento", "Visão de Negócio", "Governança"],
                 progress: [
-                    { icon: "fa-solid fa-chart-line", title: "Planejamento Orçamentário", hours: "15 horas", value: "+ $3500" },
-                    { icon: "fa-solid fa-handshake", title: "Reunião com Investidores", hours: "10 horas", value: "+ $2800" },
-                    { icon: "fa-solid fa-bullhorn", title: "Alinhamento de Metas", hours: "8 horas", value: "+ $1500" },
-                    { icon: "fa-solid fa-globe", title: "Expansão de Mercado", hours: "25 horas", value: "+ $5000" }
+                    { icon: "fa-solid fa-chart-line", title: "Planejamento Orçamentário", hours: "15 horas", value: "+ $1200" },
+                    { icon: "fa-solid fa-handshake", title: "Reunião com Investidores", hours: "10 horas", value: "+ $900" },
+                    { icon: "fa-solid fa-bullhorn", title: "Alinhamento de Metas", hours: "8 horas", value: "+ $500" },
+                    { icon: "fa-solid fa-globe", title: "Expansão de Mercado", hours: "25 horas", value: "+ $1800" }
                 ],
                 currentTask: "Consolidar Relatório Financeiro Trimestral e Alinhamento do Board"
             },
             "Gerente de Projetos": {
-                baseSalary: 85000,
+                monthlySalary: 7500,
                 projects: 18,
                 tags: ["Scrum", "Agile", "Gestão de Prazos", "Jira", "Risk Management"],
                 progress: [
-                    { icon: "fa-solid fa-list-check", title: "Sprint Planning", hours: "12 horas", value: "+ $1200" },
-                    { icon: "fa-solid fa-users-gear", title: "Daily Meetings", hours: "20 horas", value: "+ $1500" },
-                    { icon: "fa-solid fa-chart-pie", title: "Retrospectiva", hours: "6 horas", value: "+ $600" },
-                    { icon: "fa-solid fa-file-contract", title: "Gestão de Riscos", hours: "14 horas", value: "+ $1400" }
+                    { icon: "fa-solid fa-list-check", title: "Sprint Planning", hours: "12 horas", value: "+ $600" },
+                    { icon: "fa-solid fa-users-gear", title: "Daily Meetings", hours: "20 horas", value: "+ $750" },
+                    { icon: "fa-solid fa-chart-pie", title: "Retrospectiva", hours: "6 horas", value: "+ $300" },
+                    { icon: "fa-solid fa-file-contract", title: "Gestão de Riscos", hours: "14 horas", value: "+ $700" }
                 ],
                 currentTask: "Acompanhar entregas da Sprint atual e desobstruir gargalos da equipe"
             },
             "Designer UX/UI": {
-                baseSalary: 45989,
+                monthlySalary: 3832,
                 projects: 11,
                 tags: ["Journey Map", "Responsive Design", "Design System", "User Experience", "Figma"],
                 progress: [
-                    { icon: "fa-solid fa-chart-pie", title: "Testes de Usuário", hours: "10 horas", value: "+ $600" },
-                    { icon: "fa-regular fa-comments", title: "Entrevistas", hours: "16 horas", value: "+ $900" },
-                    { icon: "fa-solid fa-users", title: "Testes A/B", hours: "5 horas", value: "+ $340" },
-                    { icon: "fa-solid fa-laptop-code", title: "Criar um CJM", hours: "20 horas", value: "+ $1200" }
+                    { icon: "fa-solid fa-chart-pie", title: "Testes de Usuário", hours: "10 horas", value: "+ $300" },
+                    { icon: "fa-regular fa-comments", title: "Entrevistas", hours: "16 horas", value: "+ $450" },
+                    { icon: "fa-solid fa-users", title: "Testes A/B", hours: "5 horas", value: "+ $170" },
+                    { icon: "fa-solid fa-laptop-code", title: "Criar um CJM", hours: "20 horas", value: "+ $600" }
                 ],
                 currentTask: "Desenvolver Componentes de UI Baseados no Design System"
             },
             "Desenvolvedor Frontend": {
-                baseSalary: 72000,
+                monthlySalary: 6000,
                 projects: 15,
                 tags: ["JavaScript", "React", "HTML/CSS", "Git", "Performance Web"],
                 progress: [
-                    { icon: "fa-solid fa-code", title: "Implementação de Componentes", hours: "25 horas", value: "+ $1800" },
-                    { icon: "fa-solid fa-bug", title: "Correção de Bugs", hours: "10 horas", value: "+ $800" },
-                    { icon: "fa-solid fa-code-pull-request", title: "Code Review", hours: "8 horas", value: "+ $700" },
-                    { icon: "fa-solid fa-gauge-high", title: "Otimização de SEO/Performance", hours: "12 horas", value: "+ $1100" }
+                    { icon: "fa-solid fa-code", title: "Implementação de Componentes", hours: "25 horas", value: "+ $900" },
+                    { icon: "fa-solid fa-bug", title: "Correção de Bugs", hours: "10 horas", value: "+ $400" },
+                    { icon: "fa-solid fa-code-pull-request", title: "Code Review", hours: "8 horas", value: "+ $350" },
+                    { icon: "fa-solid fa-gauge-high", title: "Otimização de SEO/Performance", hours: "12 horas", value: "+ $550" }
                 ],
                 currentTask: "Refatorar componentes principais da aplicação para melhoria de velocidade"
             },
             "Secretária": {
-                baseSalary: 38000,
+                monthlySalary: 3100,
                 projects: 30,
                 tags: ["Organização de Agenda", "Atendimento Executivo", "Redação Oficial", "Gestão de Documentos"],
                 progress: [
-                    { icon: "fa-regular fa-calendar-check", title: "Organização de Agendas", hours: "15 horas", value: "+ $500" },
-                    { icon: "fa-regular fa-file-lines", title: "Gestão de Documentação", hours: "20 horas", value: "+ $700" },
-                    { icon: "fa-solid fa-phone", title: "Atendimento Telefônico", hours: "12 horas", value: "+ $400" },
-                    { icon: "fa-solid fa-envelope-open-text", title: "Correspondência Corporativa", hours: "10 horas", value: "+ $350" }
+                    { icon: "fa-regular fa-calendar-check", title: "Organização de Agendas", hours: "15 horas", value: "+ $250" },
+                    { icon: "fa-regular fa-file-lines", title: "Gestão de Documentação", hours: "20 horas", value: "+ $350" },
+                    { icon: "fa-solid fa-phone", title: "Atendimento Telefônico", hours: "12 horas", value: "+ $200" },
+                    { icon: "fa-solid fa-envelope-open-text", title: "Correspondência Corporativa", hours: "10 horas", value: "+ $180" }
                 ],
                 currentTask: "Atualizar arquivo de atas de reuniões da diretoria executiva"
             },
             "Recepcionista": {
-                baseSalary: 32000,
+                monthlySalary: 2600,
                 projects: 40,
                 tags: ["Atendimento ao Cliente", "Controle de Acesso", "Central Telefônica", "Hospitalidade"],
                 progress: [
-                    { icon: "fa-solid fa-id-badge", title: "Credenciamento de Visitantes", hours: "25 horas", value: "+ $450" },
-                    { icon: "fa-solid fa-headset", title: "Central de Chamadas", hours: "18 horas", value: "+ $350" },
-                    { icon: "fa-solid fa-people-arrows", title: "Recepção de Clientes", hours: "20 horas", value: "+ $500" },
-                    { icon: "fa-solid fa-clipboard-user", title: "Controle de Logística de Sala", hours: "8 horas", value: "+ $200" }
+                    { icon: "fa-solid fa-id-badge", title: "Credenciamento de Visitantes", hours: "25 horas", value: "+ $220" },
+                    { icon: "fa-solid fa-headset", title: "Central de Chamadas", hours: "18 horas", value: "+ $180" },
+                    { icon: "fa-solid fa-people-arrows", title: "Recepção de Clientes", hours: "20 horas", value: "+ $250" },
+                    { icon: "fa-solid fa-clipboard-user", title: "Controle de Logística de Sala", hours: "8 horas", value: "+ $100" }
                 ],
                 currentTask: "Organizar fluxo de atendimento e cadastro de visitantes na recepção principal"
             },
             "Outro": {
-                baseSalary: 40000,
+                monthlySalary: 3500,
                 projects: 8,
                 tags: ["Operações", "Produtividade", "Suporte", "Colaboração"],
                 progress: [
-                    { icon: "fa-solid fa-circle-check", title: "Demandas Gerais", hours: "15 horas", value: "+ $500" },
-                    { icon: "fa-solid fa-list-check", title: "Tarefas Diárias", hours: "15 horas", value: "+ $500" }
+                    { icon: "fa-solid fa-circle-check", title: "Demandas Gerais", hours: "15 horas", value: "+ $250" },
+                    { icon: "fa-solid fa-list-check", title: "Tarefas Diárias", hours: "15 horas", value: "+ $250" }
                 ],
                 currentTask: "Executar rotinas operacionais diárias atribuídas pelo gestor"
             }
         };
 
         let currentActiveRole = "Designer UX/UI";
-        let currentSalaryValue = 45989;
+        let currentMonthlySalary = 3832;
 
         // Alternar visualizações pelas abas da barra lateral esquerda
         function switchView(viewName, buttonElement) {
@@ -1539,7 +1531,6 @@
             if(newRole !== null && roleDatabase[newRole]) {
                 updateDashboardByRole(newRole);
             } else if(newRole !== null && newRole.trim() !== "") {
-                // Cargo personalizado manual
                 document.getElementById('display-role').innerText = newRole;
                 currentActiveRole = "Outro";
                 updateDashboardByRole("Outro");
@@ -1554,8 +1545,10 @@
             document.getElementById('display-role').innerText = roleName;
             document.getElementById('display-projects').innerText = data.projects;
             
-            currentSalaryValue = data.baseSalary;
-            document.getElementById('display-salary').innerText = `$${data.baseSalary.toLocaleString('en-US')}`;
+            currentMonthlySalary = data.monthlySalary;
+            
+            // Define o padrão inicial como o mês atual selecionado
+            document.getElementById('display-salary').innerText = `$${data.monthlySalary.toLocaleString('en-US')}`;
             document.getElementById('display-current-task-desc').innerText = data.currentTask;
 
             // Atualizar Tags de Competências
@@ -1586,6 +1579,13 @@
                 `;
                 progressBox.appendChild(div);
             });
+            
+            // Resetar filtro ativo visualmente para 1M
+            document.querySelectorAll('.time-filters button').forEach(b => b.classList.remove('active'));
+            // Procura o botão '1M' e ativa
+            document.querySelectorAll('.time-filters button').forEach(b => {
+                if(b.innerText === '1M') b.classList.add('active');
+            });
         }
 
         // Adicionar nova competência/tag manualmente
@@ -1605,7 +1605,7 @@
             element.parentElement.remove();
         }
 
-        // Filtros de Salário Dinâmicos (7D, 1D, 1M, 1Y, All)
+        // Filtros de Período de Salário Dinâmicos (7D, 1D, 1M, 1Y, All) baseados no Salário Mensal
         function filterSalary(period, btnElement) {
             document.querySelectorAll('.time-filters button').forEach(b => b.classList.remove('active'));
             btnElement.classList.add('active');
@@ -1614,36 +1614,46 @@
             const salaryEl = document.getElementById('display-salary');
             const tooltipValEl = document.getElementById('tooltip-val');
             const monthsRowEl = document.getElementById('months-row-label');
+            const chartBarsContainer = document.getElementById('chart-bars-container');
 
             let multiplier = 1;
-            let periodText = "Jan-Dez";
+            let periodText = "Este Mês";
+            let tooltipTitle = "Média Semanal";
 
             if(period === '7D') {
-                multiplier = 7 / 365;
+                multiplier = 7 / 30;
                 periodText = "Últimos 7 dias";
+                tooltipTitle = "Média Diária";
                 monthsRowEl.innerHTML = '<span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span>';
             } else if(period === '1D') {
-                multiplier = 1 / 365;
+                multiplier = 1 / 30;
                 periodText = "Hoje";
+                tooltipTitle = "Por Período";
                 monthsRowEl.innerHTML = '<span>08:00</span><span>10:00</span><span>12:00</span><span>14:00</span><span>16:00</span><span>18:00</span>';
             } else if(period === '1M') {
-                multiplier = 30 / 365;
+                multiplier = 1;
                 periodText = "Este Mês";
+                tooltipTitle = "Média Semanal";
                 monthsRowEl.innerHTML = '<span>Sem 1</span><span>Sem 2</span><span>Sem 3</span><span>Sem 4</span>';
             } else if(period === '1Y') {
-                multiplier = 1;
-                periodText = "Jan-Dez";
+                multiplier = 12;
+                periodText = "Anual (12 Meses)";
+                tooltipTitle = "Média Mensal";
                 monthsRowEl.innerHTML = '<span>Jan</span><span>Fev</span><span>Mar</span><span>Abr</span><span>Mai</span><span>Jun</span><span>Jul</span><span>Ago</span><span>Set</span><span>Out</span><span>Nov</span><span>Dez</span>';
             } else if(period === 'All') {
-                multiplier = 2.5; // Histórico de acumulado geral
-                periodText = "Acumulado Total";
-                monthsRowEl.innerHTML = '<span>2023</span><span>2024</span><span>2025</span><span>2026</span>';
+                multiplier = 24; // Histórico acumulado de 2 anos
+                periodText = "Acumulado (2 Anos)";
+                tooltipTitle = "Média Anual";
+                monthsRowEl.innerHTML = '<span>2025</span><span>2026</span>';
             }
 
-            const calculated = Math.round(currentSalaryValue * multiplier);
+            const calculated = Math.round(currentMonthlySalary * multiplier);
             labelEl.innerText = periodText;
             salaryEl.innerText = `$${calculated.toLocaleString('en-US')}`;
-            tooltipValEl.innerText = `$${Math.round(calculated / 12).toLocaleString('en-US')}`;
+            
+            // Atualiza rótulo do tooltip
+            document.querySelector('#chart-tooltip-box small').innerText = tooltipTitle;
+            tooltipValEl.innerText = `$${Math.round(calculated / 4).toLocaleString('en-US')}`;
         }
 
         // Modal para Cadastrar Novo Funcionário
@@ -1671,7 +1681,7 @@
             document.getElementById('format-days-text').innerText = days;
             document.getElementById('display-work-time').innerText = `${Math.floor(days / 365) || 1} anos de trabalho`;
 
-            // Atualiza cargo, salário e tags automaticamente
+            // Atualiza cargo, salário mensal e tags automaticamente
             updateDashboardByRole(role);
 
             if(photoUrl.trim() !== "") {
