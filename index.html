@@ -1326,7 +1326,7 @@
                     </div>
 
                     <div class="task-checklist">
-                        <div class="task-check-item" onclick="toggleTask(this)">
+                        <div class="task-check-item">
                             <div class="task-check-left">
                                 <div class="checkbox-custom checked"><i class="fa-solid fa-check"></i></div>
                                 <span style="text-decoration: line-through; color: var(--text-muted);">Executar Testes A/B para Variantes de Interface</span>
@@ -1334,7 +1334,7 @@
                             <span class="task-time">12:11</span>
                         </div>
 
-                        <div class="task-check-item" onclick="toggleTask(this)">
+                        <div class="task-check-item">
                             <div class="task-check-left">
                                 <div class="checkbox-custom"></div>
                                 <span>Mapear Fluxo do Usuário para o Processo de Registro</span>
@@ -1342,7 +1342,7 @@
                             <span class="task-time">15:41</span>
                         </div>
 
-                        <div class="task-check-item" onclick="toggleTask(this)">
+                        <div class="task-check-item">
                             <div class="task-check-left">
                                 <div class="checkbox-custom"></div>
                                 <span>Realizar Auditoria de UX do Produto Existente</span>
@@ -1350,7 +1350,7 @@
                             <span class="task-time">16:54</span>
                         </div>
 
-                        <div class="task-check-item" onclick="toggleTask(this)">
+                        <div class="task-check-item">
                             <div class="task-check-left">
                                 <div class="checkbox-custom"></div>
                                 <span>Validar Protótipo Antes do Lançamento MixP</span>
@@ -1358,7 +1358,7 @@
                             <span class="task-time">17:11</span>
                         </div>
 
-                        <div class="task-check-item" onclick="toggleTask(this)">
+                        <div class="task-check-item">
                             <div class="task-check-left">
                                 <div class="checkbox-custom"></div>
                                 <span>Desenvolver Experiência de Onboarding</span>
@@ -1433,22 +1433,18 @@
     </div>
 
     <script>
-        // Variáveis de estado global
         let memberCount = 12;
 
-        // 1. Alternar visualizações pelas abas da barra lateral esquerda
+        // Alternar visualizações pelas abas da barra lateral esquerda
         function switchView(viewName, buttonElement) {
-            // Remove active de todos os ícones da nav
             document.querySelectorAll('.nav-icon').forEach(btn => btn.classList.remove('active'));
             buttonElement.classList.add('active');
 
-            // Esconde todas as views
             document.getElementById('view-home').classList.remove('active-view');
             document.getElementById('view-agenda').classList.remove('active-view');
             document.getElementById('view-mensagens').classList.remove('active-view');
             document.getElementById('view-analytics').classList.remove('active-view');
 
-            // Mostra a view solicitada
             if(viewName === 'home') {
                 document.getElementById('view-home').classList.add('active-view');
             } else if(viewName === 'agenda') {
@@ -1460,7 +1456,7 @@
             }
         }
 
-        // 2. Carregar/Alterar foto do funcionário
+        // Carregar/Alterar foto do funcionário
         function previewFile() {
             const preview = document.getElementById('employee-img');
             const file = document.getElementById('file-input').files[0];
@@ -1475,7 +1471,7 @@
             }
         }
 
-        // 3. Editar Nome e Cargo do funcionário existente
+        // Editar Nome e Cargo do funcionário existente
         function editProfile() {
             const currentName = document.getElementById('display-name').innerText;
             const currentRole = document.getElementById('display-role').innerText;
@@ -1491,7 +1487,7 @@
             }
         }
 
-        // 4. Modal para Cadastrar Novo Funcionário
+        // Modal para Cadastrar Novo Funcionário
         function openModal() {
             document.getElementById('employeeModal').style.display = 'flex';
         }
@@ -1511,7 +1507,6 @@
                 return;
             }
 
-            // Atualiza os dados principais no card do funcionário
             document.getElementById('display-name').innerText = name;
             document.getElementById('display-role').innerText = role;
             document.getElementById('display-days').innerText = days;
@@ -1521,14 +1516,12 @@
             if(photoUrl.trim() !== "") {
                 document.getElementById('employee-img').src = photoUrl;
                 
-                // Adiciona foto ao container de membros do topo
                 const avatarsContainer = document.getElementById('team-avatars-container');
                 const newImg = document.createElement('img');
                 newImg.src = photoUrl;
                 avatarsContainer.appendChild(newImg);
             }
 
-            // Incrementa contador de membros
             memberCount++;
             document.getElementById('member-count-text').innerText = `${memberCount} membros`;
 
@@ -1536,8 +1529,7 @@
             alert(`Funcionário ${name} cadastrado e carregado com sucesso!`);
         }
 
-        // 5. Marcar / Desmarcar tarefas da lista
-        function task-check-item(itemElement) {}
+        // Marcar / Desmarcar tarefas da lista
         document.querySelectorAll('.task-check-item').forEach(item => {
             item.addEventListener('click', function() {
                 const checkbox = this.querySelector('.checkbox-custom');
